@@ -23,7 +23,7 @@ class CurrencyTest(unittest.TestCase):
         self.assertEqual(self.amount, 3.5)
 
     def test__init__(self):
-        Currency.__init__(self, '$3.5')
+        c = Currency('$3.5')
         self.assertEqual(self.currency_code, 'USD')
         self.assertEqual(self.amount, 3.5)
 
