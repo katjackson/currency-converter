@@ -5,12 +5,29 @@ class CurrencyTest(unittest.TestCase):
 
     four_dollars = Currency(4, 'USD')
     five_dollars = Currency(5, 'USD')
-    five_euros = Currency(5, 'Euros')
+    five_euros = Currency(5, 'EUR')
 
     def test__init__(self):
         Currency.__init__(self, 3, 'USD')
         self.assertEqual(self.currency_code, 'USD')
         self.assertEqual(self.amount, 3)
+
+    def test__init__(self):
+        Currency.__init__(self, '$3')
+        self.assertEqual(self.currency_code, 'USD')
+        self.assertEqual(self.amount, 3)
+
+    def test__init__(self):
+        Currency.__init__(self, 3.5, 'USD')
+        self.assertEqual(self.currency_code, 'USD')
+        self.assertEqual(self.amount, 3.5)
+
+    def test__init__(self):
+        Currency.__init__(self, '$3.5')
+        self.assertEqual(self.currency_code, 'USD')
+        self.assertEqual(self.amount, 3.5)
+
+
 
     def test__eq__(self):
         self.assertFalse(Currency.__eq__(four_dollars, five_dollars))
@@ -19,7 +36,7 @@ class CurrencyTest(unittest.TestCase):
     def test__ne__(self):
         self.assertTrue(Currency.__ne__(four_dollars, five_dollars))
         self.assertFalse(Currency.__ne__(four_dollars, (Currency(4, 'USD'))))
-        self.assertTrue(Currency.__ne__(four_dollars, (Currency(4, 'Euros'))))
+        self.assertTrue(Currency.__ne__(four_dollars, (Currency(4, 'EUR'))))
 
     def test__add__(self):
         result_1 = Currency.__add__((Currency(3, 'USD')), five_dollars)
