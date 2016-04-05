@@ -47,6 +47,12 @@ class CurrencyTest(unittest.TestCase):
         self.assertFalse(Currency.__ne__(self.four_dollars, (Currency(4, 'USD'))))
         self.assertTrue(Currency.__ne__(self.four_dollars, (Currency(4, 'EUR'))))
 
+    def test__gt__(self):
+        self.assertTrue(self.five_dollars > self.four_dollars)
+
+    def test__lt__(self):
+        pass
+
     def test__add__(self):
         result_1 = Currency.__add__((Currency(3, 'USD')), self.five_dollars)
         self.assertEqual(result_1, Currency(8, 'USD'))
@@ -62,6 +68,9 @@ class CurrencyTest(unittest.TestCase):
 
     def test__mul__(self):
         self.assertEqual((self.five_dollars * 4), (20, 'USD'))
+
+    def test__str__(self):
+        self.assertEqual(str(self.five_dollars), '5 USD')
 
 
 if __name__ == '__main__':

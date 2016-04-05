@@ -27,6 +27,12 @@ class Currency():
     def __ne__(self, other):
         return self.currency_code != other.currency_code or self.amount != other.amount
 
+    def __gt__(self, other):
+        return self.currency_code == other.currency_code and self.amount > other.amount
+
+    def __lt__(self, other):
+        return self.currency_code == other.currency_code and self.amount < self.amount
+
     def __add__(self, other):
         if self.currency_code == other.currency_code:
             return Currency((self.amount + other.amount), self.currency_code)
@@ -40,9 +46,10 @@ class Currency():
             raise DifferentCurrencyCodeError()
 
     def __mul__(self, num):
-        return (self.amount * num), self.currency_code
+        return Currency((self.amount * num), self.currency_code)
 
-
+    def __str__(self):
+        return str(self.amount) + ' ' + self.currency_code
 
 class DifferentCurrencyCodeError(Exception):
     pass

@@ -26,8 +26,9 @@ class CurrencyConverterTest(unittest.TestCase):
         self.assertEqual(converted, Currency(505.68, 'JPY'))
 
     def test_convert(self):
-        self.assertRaises(UnknownCurrencyCodeError, CurrencyConverter.convert, self, Currency(5, 'BEF'), 'EUR')
-        self.assertRaises(UnknownCurrencyCodeError, CurrencyConverter.convert, self, Currency(5, 'EUR'), 'BEF')
+        cc = CurrencyConverter(self.currency_codes)
+        self.assertRaises(UnknownCurrencyCodeError, CurrencyConverter.convert, cc, Currency(5, 'BEF'), 'EUR')
+        self.assertRaises(UnknownCurrencyCodeError, CurrencyConverter.convert, cc, Currency(5, 'EUR'), 'BEF')
 
 
 if __name__ == '__main__':
