@@ -49,13 +49,15 @@ class CurrencyTest(unittest.TestCase):
 
     def test__add__(self):
         result_1 = Currency.__add__((Currency(3, 'USD')), self.five_dollars)
-        self.assertEqual(result_1, (8, 'USD'))
-        self.assertEqual(self.five_dollars + self.four_dollars, (9, 'USD'))
+        self.assertEqual(result_1, Currency(8, 'USD'))
+        self.assertEqual(type(result_1), Currency)
+        self.assertEqual(self.five_dollars + self.four_dollars, Currency(9, 'USD'))
         self.assertRaises(DifferentCurrencyCodeError, Currency.__add__, self.five_dollars, self.five_euros)
 
     def test__sub__(self):
         result = Currency.__sub__(self.five_dollars, self.four_dollars)
-        self.assertEqual(result, (1, 'USD'))
+        self.assertEqual(result, Currency(1, 'USD'))
+        self.assertEqual(type(result), Currency)
         self.assertRaises(DifferentCurrencyCodeError, Currency.__sub__, self.five_dollars, self.five_euros)
 
     def test__mul__(self):

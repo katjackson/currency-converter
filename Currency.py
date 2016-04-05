@@ -29,13 +29,13 @@ class Currency():
 
     def __add__(self, other):
         if self.currency_code == other.currency_code:
-            return (self.amount + other.amount), self.currency_code
+            return Currency((self.amount + other.amount), self.currency_code)
         else:
             raise DifferentCurrencyCodeError()
 
     def __sub__(self, other):
         if self.currency_code == other.currency_code:
-            return (self.amount - other.amount), self.currency_code
+            return Currency((self.amount - other.amount), self.currency_code)
         else:
             raise DifferentCurrencyCodeError()
 
