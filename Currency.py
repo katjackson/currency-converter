@@ -1,24 +1,22 @@
 class Currency():
-    def __init__(self, *args):
-        for arg in args:
-            try:
-                arg.isalpha()
-                self.currency_code = arg
-            except:
-                if self.is_number(arg):
-                    self.amount = arg
-            else:
-                self.amount, self.currency_code = self.check_currency(arg)
+    currency_symbols = {'$': 'USD', '¥': 'JPY', '€': 'EUR'}
 
-    def check_currency(self, arg):
-        if arg.startswith('$'):
-            self.amount = arg.strip('$')
-            self.currency_code = 'USD'
-        return self.amount, self.currency_code
+    def __init__(self, amount, currency_code = ''):
+        self.currency_code = currency_code
+        if self.is_number(amount):
+                self.amount = round(amount, 2)
+        else:
+            self.amount, self.currency_code = self.check_currency(amount)
 
-    def is_number(self, arg):
+    def check_currency(self, amount):
+        for key in self.currency_symbols:
+            if amount.startswith(key):
+                self.amount = float(amount.strip(key))
+                return self.amount, self.currency_symbols[key]
+
+    def is_number(self, amount):
         try:
-            float(arg)
+            float(amount)
             return True
         except:
             return False
@@ -45,15 +43,6 @@ class Currency():
         return (self.amount * num), self.currency_code
 
 
-
-four_dollars = Currency(4, 'USD')
-print(four_dollars.currency_code, four_dollars.amount)
-six_dollars = Currency('$6')
-print(six_dollars.amount, six_dollars.currency_code)
-five_dollars = Currency(5, 'USD')
-print(four_dollars + five_dollars)
-five_euros = Currency(5, 'EUR')
-print(four_dollars * 5)
 
 class DifferentCurrencyCodeError(Exception):
     pass
