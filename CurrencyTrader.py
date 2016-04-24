@@ -13,6 +13,9 @@ class CurrencyTrader(CurrencyConverter):
         new_currency_rates = CurrencyConverter(self.new_currency_rates)
         most_money_made = Currency(0, self.starting_currency)
 
+        print(old_currency_rates.currency_codes)
+        print(new_currency_rates.currency_codes)
+
         for key in old_currency_rates.currency_codes:
             old_amount = CurrencyConverter.convert(old_currency_rates, self.starting_currency, key)
             new_amount = CurrencyConverter.convert(new_currency_rates, self.starting_currency, key)
@@ -25,16 +28,21 @@ class CurrencyTrader(CurrencyConverter):
             print(new_amount)
             print(money_made)
             print(money_made_in_starting_currency)
+            print(type(most_money_made))
+            print(type(money_made_in_starting_currency))
 
-            if money_made_in_starting_currency > most_money_made:
-                most_money_made = money_made_in_starting_currency
-                return most_money_made.currency_code
+            # if money_made_in_starting_currency > most_money_made:
+            #     most_money_made = money_made_in_starting_currency
+            #     print(type(most_money_made))
+
+
+        return most_money_made.currency_code
 
 
 
 april_rates = {'USD': 1.0, 'EUR': 0.87, 'JPY': 110.8, 'GBP': 0.69}
 may_rates = {'USD': 1.0, 'EUR': 0.92, 'JPY': 114.11, 'GBP': 0.71}
-starting_currency = Currency(50, 'USD')
+starting_currency = Currency(50, 'EUR')
 
 ct = CurrencyTrader(april_rates, may_rates, starting_currency)
 print(ct.find_best_investment())

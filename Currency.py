@@ -1,7 +1,23 @@
+
+"""
+The Currency class holds amount and currency_code as attributes for currency
+objects. Standard dunder functions have been overwritten to allow currency
+objects to interact with each other as expected.
+"""
+
+
 class Currency():
     currency_symbols = {'$': 'USD', '¥': 'JPY', '€': 'EUR'}
 
-    def __init__(self, amount, currency_code = ''):
+    """
+    A currency object is initialized with an amount and a currency code. If a
+    currency code is supplied in the format (amount, currency_code) (4, USD),
+    these attributes are automatically set. If a single argument is supplied
+    ('$4'), the internal function check_currency is used to strip the amount
+    from the currency and determine the proper code.
+    """
+
+    def __init__(self, amount, currency_code=''):
         self.currency_code = currency_code
         if self.is_number(amount):
                 self.amount = round(amount, 2)
@@ -22,16 +38,24 @@ class Currency():
             return False
 
     def __eq__(self, other):
-        return self.currency_code == other.currency_code and self.amount == other.amount
+        return (self.currency_code == other.currency_code and
+                self.amount == other.amount)
 
     def __ne__(self, other):
-        return self.currency_code != other.currency_code or self.amount != other.amount
+        return (self.currency_code != other.currency_code or
+                self.amount != other.amount)
 
     def __gt__(self, other):
-        return self.currency_code == other.currency_code and self.amount > other.amount
+        if self.currency_code == other.currency_code:
+            return self.amount > other.amount
+        else:
+            raise DifferentCurrencyCodeError()
 
     def __lt__(self, other):
-        return self.currency_code == other.currency_code and self.amount < self.amount
+        if self.currency_code == other.currency_code:
+            return self.amount < other.amount
+        else:
+            raise DifferentCurrencyCodeError()
 
     def __add__(self, other):
         if self.currency_code == other.currency_code:
@@ -50,6 +74,7 @@ class Currency():
 
     def __str__(self):
         return str(self.amount) + ' ' + self.currency_code
+
 
 class DifferentCurrencyCodeError(Exception):
     pass
