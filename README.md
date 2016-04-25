@@ -8,4 +8,4 @@ The Currency class is defined in the currency.py module. It takes two arguments 
 The CurrencyConverter class is defined in the CurrencyConverter.py module.  It takes a dictionary of currency codes and exchange rates and converts one currency object to a currency object in a different currency code.
 
 ## CurrencyTrader Class
-NOT FUNCTIONING
+The CurrencyTrader class is defined in the CurrencyTrader.py module. Once initialized with two CurrencyConverter objects from different times and a starting currency object and allows you to calculate the best investment.

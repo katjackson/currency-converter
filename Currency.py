@@ -46,16 +46,28 @@ class Currency():
                 self.amount != other.amount)
 
     def __gt__(self, other):
-        if self.currency_code == other.currency_code:
-            return self.amount > other.amount
+        if type(other) == Currency:
+            if self.currency_code == other.currency_code:
+                return self.amount > other.amount
+            else:
+                raise DifferentCurrencyCodeError()
         else:
-            raise DifferentCurrencyCodeError()
+            try:
+                self.amount > other
+            except:
+                DifferentCurrencyCodeError()
 
     def __lt__(self, other):
-        if self.currency_code == other.currency_code:
-            return self.amount < other.amount
+        if type(other) == Currency:
+            if self.currency_code == other.currency_code:
+                return self.amount < other.amount
+            else:
+                raise DifferentCurrencyCodeError()
         else:
-            raise DifferentCurrencyCodeError()
+            try:
+                self.amount < other
+            except:
+                DifferentCurrencyCodeError()
 
     def __add__(self, other):
         if self.currency_code == other.currency_code:

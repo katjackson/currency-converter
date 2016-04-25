@@ -32,9 +32,9 @@ class CurrencyConverter:
             return Currency(new_amount, new_currency_code)
 
 
-cc = CurrencyConverter({'USD': 1.0, 'EUR': 0.88, 'JPY': 111.25})
-four_dollars = Currency(4, 'USD')
-print(cc.convert(four_dollars, 'EUR'))
+# cc = CurrencyConverter({'USD': 1.0, 'EUR': 0.88, 'JPY': 111.25})
+# four_dollars = Currency(4, 'USD')
+# print(cc.convert(four_dollars, 'EUR'))
 
 
 class UnknownCurrencyCodeError(Exception):

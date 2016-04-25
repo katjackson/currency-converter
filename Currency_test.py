@@ -86,7 +86,6 @@ class CurrencyTest(unittest.TestCase):
         self.assertEqual((self.five_dollars * 4), Currency(20, 'USD'))
 
     def test__str__(self):
-        print(self.five_dollars)
         self.assertEqual(str(self.five_dollars), '5 USD')
 
 
@@ -94,31 +93,32 @@ class CurrencyConverterTest(unittest.TestCase):
 
     four_dollars = Currency('$4')
     four_euros = Currency(4, 'EUR')
-    currency_codes = ({'USD': 1.0, 'EUR': 0.88, 'JPY': 111.25})
+    currency_codes = {'USD': 1.0, 'EUR': 0.88, 'JPY': 111.25}
     cc = CurrencyConverter(currency_codes)
 
     def test__init__(self):
-        print('This ran inside new file')
         cc = CurrencyConverter(self.currency_codes)
         self.assertEqual(cc.currency_codes,
                          {'USD': 1.0, 'EUR': 0.88, 'JPY': 111.25})
 
     def test_convert_same(self):
+        cc = CurrencyConverter(self.currency_codes)
         converted = cc.convert(self.four_dollars, 'USD')
         self.assertEqual(converted, self.four_dollars)
 
     def test_convert_d_to_e(self):
+        cc = CurrencyConverter(self.currency_codes)
         converted = cc.convert(self.four_dollars, 'EUR')
-        print(converted)
         self.assertEqual(converted, Currency(3.52, 'EUR'))
 
     def test_convert_e_to_d(self):
+        cc = CurrencyConverter(self.currency_codes)
         converted = cc.convert(self.four_euros, 'USD')
         self.assertEqual(converted, Currency(4.55, 'USD'))
 
     def test_convert_e_to_j(self):
+        cc = CurrencyConverter(self.currency_codes)
         converted = cc.convert(self.four_euros, 'JPY')
-        print(converted)
         self.assertEqual(converted, Currency(505.68, 'JPY'))
 
     def test_convert_error(self):
@@ -131,15 +131,16 @@ class CurrencyConverterTest(unittest.TestCase):
 
 class CurrencyTraderTest(unittest.TestCase):
 
-    old_rates = {'USD': 1.0, 'EUR': 2, 'JPY': 3, 'GBP': 2}
-    new_rates = {'USD': 1.0, 'EUR': 3, 'JPY': 4, 'GBP': 2.5}
+    old_rates = CurrencyConverter({'USD': 1.0, 'EUR': 2, 'JPY': 3, 'GBP': 2})
+    new_rates = CurrencyConverter({'USD': 1.0, 'EUR': 3, 'JPY': 4, 'GBP': 2.5})
+
+    ct = CurrencyTrader(old_rates, new_rates, Currency(5, 'USD'))
 
     def test__init__(self):
         pass
 
     def test_find_best_investment(self):
-        result = CurrencyTrader.find_best_investment(self.old_rates,
-                                                     self.new_rates, 'USD')
+        result = ct.find_best_investment()
         self.assertEqual(result, 'EUR')
 
 if __name__ == '__main__':
